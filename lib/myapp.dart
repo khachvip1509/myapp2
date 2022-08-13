@@ -139,12 +139,14 @@ void _onButtonShowModalSheet(){
       },
         tooltip: "Add transaction",
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       key: _scaffoldKey,
       body: SafeArea(
           minimum: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
             child: Column(children: [
+              Padding(padding: const EdgeInsets.symmetric(vertical: 20)),
               ButtonTheme(
                 height: 60,
                 child: FlatButton(
@@ -153,7 +155,7 @@ void _onButtonShowModalSheet(){
                   },
                   child: Text(
                     'Insert Transaction',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20, fontFamily:'Indie_Flower',),
                   ),
                   textColor: Colors.white,
                   color: Colors.amber,

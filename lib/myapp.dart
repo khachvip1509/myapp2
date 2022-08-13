@@ -67,25 +67,31 @@ void _onButtonShowModalSheet(){
           return Column(
             children: [
               Padding(padding: const EdgeInsets.symmetric(vertical: 20)),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Content",
+              Container(
+                padding: EdgeInsets.all(10),
+                child:TextField(
+                  decoration: InputDecoration(
+                    labelText: "Content",
+                  ),
+                  controller: _contentController,
+                  onChanged: (text) {
+                    setState(() {
+                      _transaction.content = text;
+                    });
+                  },
                 ),
-                controller: _contentController,
-                onChanged: (text) {
-                  setState(() {
-                    _transaction.content = text;
-                  });
-                },
               ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Amount(money)'),
-                controller: _amountController,
-                onChanged: (text) {
-                  setState(() {
-                    _transaction.amount = double.tryParse(text) ?? 0.0;
-                  });
-                },
+              Container(
+              padding: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecoration(labelText: 'Amount(money)'),
+                  controller: _amountController,
+                  onChanged: (text) {
+                    setState(() {
+                      _transaction.amount = double.tryParse(text) ?? 0.0;
+                    });
+                  },
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 10,right: 10, top: 30,bottom: 20),
@@ -98,18 +104,19 @@ void _onButtonShowModalSheet(){
                       setState(() {
                         this._insertTransaction();
                       });
+                      Navigator.of(context).pop();
                     },child: Text('Save',style: TextStyle(fontSize: 16,color: Colors.white),),
                       color: Colors.green,
                     ), height: 50,),),
                   Padding(padding: EdgeInsets.all(10)),
                   Expanded(child: SizedBox(child: RaisedButton(color: Colors.red,onPressed: (){
                     print("Press cancel");
+                    Navigator.of(context).pop();
                   },child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.white)),),height: 50,)
                     ,)
 
                 ],
               ),)
-
             ],
           );
         });

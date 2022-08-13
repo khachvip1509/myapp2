@@ -60,35 +60,13 @@ void _insertTransaction(){
     _contentController.text = '';
     _amountController.text = '';
 }
-//mainAxisAlignment: MainAxisAlignment.center,
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ken This is StateFulWidget123',
-      home: Scaffold(
-        appBar:AppBar(
-          title: const Text("Transaction Manager"),
-          actions: [
-            IconButton(onPressed: (){
-              setState(() {
-                this._insertTransaction();
-              });
-             }, icon: Icon(Icons.add)
-            )],
-      ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          setState(() {
-            this._insertTransaction();
-          });
-        },
-          tooltip: "Add transaction",
-          child: Icon(Icons.add),
-        ),
-        key: _scaffoldKey,
-        body: SafeArea(
-          minimum: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(children: [
+
+void _onButtonShowModalSheet(){
+    showModalBottomSheet(context: this.context,
+        builder: (context){
+          return Column(
+            children: [
+              Padding(padding: const EdgeInsets.symmetric(vertical: 20)),
               TextField(
                 decoration: InputDecoration(
                   labelText: "Content",
@@ -109,15 +87,62 @@ void _insertTransaction(){
                   });
                 },
               ),
-              Padding(padding: const EdgeInsets.symmetric(vertical: 20)),
+              Container(
+                padding: EdgeInsets.only(left: 10,right: 10, top: 30,bottom: 20),
+                child:  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: SizedBox(child: RaisedButton(onPressed: (){
+                      print("Press Save");
+                      setState(() {
+                        this._insertTransaction();
+                      });
+                    },child: Text('Save',style: TextStyle(fontSize: 16,color: Colors.white),),
+                      color: Colors.green,
+                    ), height: 50,),),
+                  Padding(padding: EdgeInsets.all(10)),
+                  Expanded(child: SizedBox(child: RaisedButton(color: Colors.red,onPressed: (){
+                    print("Press cancel");
+                  },child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.white)),),height: 50,)
+                    ,)
+
+                ],
+              ),)
+
+            ],
+          );
+        });
+}
+
+//mainAxisAlignment: MainAxisAlignment.center,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:AppBar(
+        title: const Text("Transaction Manager"),
+        actions: [
+          IconButton(onPressed: (){
+            this._onButtonShowModalSheet();
+          }, icon: Icon(Icons.add)
+          )],
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        this._onButtonShowModalSheet();
+      },
+        tooltip: "Add transaction",
+        child: Icon(Icons.add),
+      ),
+      key: _scaffoldKey,
+      body: SafeArea(
+          minimum: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(children: [
               ButtonTheme(
                 height: 60,
                 child: FlatButton(
                   onPressed: () {
-                    setState(() {
-                      this._insertTransaction();
-                    });
-
+                    this._onButtonShowModalSheet();
                   },
                   child: Text(
                     'Insert Transaction',
@@ -137,7 +162,6 @@ void _insertTransaction(){
               TransactionList(transactionss:_transactions)
             ]),
           )
-        ),
       ),
     );
   }

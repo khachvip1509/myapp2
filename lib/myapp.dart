@@ -54,10 +54,11 @@ void _insertTransaction(){
     ){
       return;
     }
-  _transactions.add(_transaction);
-  _transaction = Transaction(content: "", amount: 0.0);
-  _contentController.text = '';
-  _amountController.text = '';
+    _transaction.createdDate =DateTime.now();
+    _transactions.add(_transaction);
+    _transaction = Transaction(content: "", amount: 0.0);
+    _contentController.text = '';
+    _amountController.text = '';
 }
 //mainAxisAlignment: MainAxisAlignment.center,
   @override
@@ -125,6 +126,13 @@ void _insertTransaction(){
                   textColor: Colors.white,
                   color: Colors.amber,
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(padding: EdgeInsets.all(20)),
+                  Text("Tong :",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold ),),
+                ],
               ),
               TransactionList(transactionss:_transactions)
             ]),
